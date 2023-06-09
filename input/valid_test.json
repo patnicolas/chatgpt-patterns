@@ -1,0 +1,5 @@
+[
+  {"prompt": "this is an apple", "completion": " 1"},
+  {"prompt": "this is an pear", "completion": " 2"},
+  {"prompt": "I ate an apple", "completion": " 1"}
+]
