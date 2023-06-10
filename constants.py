@@ -17,5 +17,3 @@ else:
 # It is assumed that test folder is a sub-directory of the given Python package
 relative_path = pathlib.PurePath(os.getcwd()).name
 print(f'Relative path: {relative_path}')
-
-openai_api_key='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'

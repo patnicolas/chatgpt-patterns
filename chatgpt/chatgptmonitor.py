@@ -47,9 +47,9 @@ class ChatGPTMonitor(object):
         activities = json.loads(content)
         return cls(monitor_name, activities)
 
-    def update(self, num_words: int, model_type: str, activity: str):
-        self.activities['cost'] += ChatGPTMonitor.__cost(num_words, model_type, activity)
-        self.activities['num_tokens'] += ChatGPTMonitor.__num_tokens(num_words)
+    def update(self, num_tokens: int, model_type: str, activity: str):
+        self.activities['cost'] += ChatGPTMonitor.__cost(num_tokens, model_type, activity)
+        self.activities['num_tokens'] += num_tokens
         self.activities['num_messages'] += 1
         self.activities[f'{activity}-{model_type}'] = self.activities.get(f'{activity}-{model_type}', 0) + 1
 
@@ -65,8 +65,7 @@ class ChatGPTMonitor(object):
         return int(num_words * ChatGPTMonitor.ratio_tokens_words)
 
     @staticmethod
-    def __cost(num_words: int, model_type: str, activity: str) -> float:
-        num_tokens = ChatGPTMonitor.__num_tokens(num_words)
+    def __cost(num_tokens: int, model_type: str, activity: str) -> float:
         return num_tokens* ChatGPTMonitor.training_token_cost[model_type] \
             if activity == 'training' \
             else \

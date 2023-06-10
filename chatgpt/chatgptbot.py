@@ -3,18 +3,21 @@ __copyright__ = "Copyright 2022, 23. All rights reserved."
 
 import openai
 from chatgpt.chatgptclient import ChatGPTRequest
-import tkinter as tk
-from tkinter import ttk, StringVar
+from chatgpt import load_api_key
+
 
 
 class ChatGPTBot(object):
     import constants
     # static variable for the API key and the default maximum number of tokens returned
-    openai.api_key = constants.openai_api_key
+    openai.api_key = load_api_key()
     default_max_tokens = 128
 
     def __init__(self, context: str, chatGPTRequest: ChatGPTRequest):
         self.context = [{'role':'system', 'content':context}]
+
+
+
         self.chatGPTRequest = chatGPTRequest
         self.window = tk.Tk()
         self.window.title("Chat Bot")

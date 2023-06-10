@@ -4,6 +4,7 @@ __copyright__ = "Copyright 2022, 23. All rights reserved."
 import openai
 from dataclasses import dataclass
 from typing import TypeVar
+from chatgpt import load_api_key
 
 Instancetype = TypeVar('Instancetype', bound='ChatGPT')
 
@@ -63,12 +64,11 @@ class ChatGPTResponse:
     choices: []
     usage: ChatGPTUsage
 
-
 class ChatGPTClient(object):
     import constants
     # static variable for the API key and the default maximum number of tokens returned
-    openai.api_key = constants.openai_api_key
-    default_max_tokens = 1024
+    openai.api_key = load_api_key()
+    default_max_tokens = 256
 
     def __init__(self, chat_gpt_request: ChatGPTRequest):
         """
@@ -93,7 +93,7 @@ class ChatGPTClient(object):
         chat_gpt_request = ChatGPTRequest(model, role, temperature, ChatGPTClient.default_max_tokens, 1, 1, 0, 0)
         return cls(chat_gpt_request)
 
-    def post(self, prompt: str) -> str:
+    def post(self, prompt: str) -> (str, int):
         """
             Post a prompt/request to ChatGPT given the parameters defined in the constructor.
             It only returns the content of the message
@@ -108,7 +108,7 @@ class ChatGPTClient(object):
                 temperature=self.chat_gpt_request.temperature,
                 max_tokens=self.chat_gpt_request.max_tokens
             )
-            return response['choices'][0].message.content
+            return response['choices'][0].message.content, response['usage'].total_tokens
         except  openai.error.AuthenticationError as e:
             logging.error(f'Failed as {str(e)}')
 
@@ -134,7 +134,7 @@ class ChatGPTClient(object):
 
 
 if __name__ == '__main__':
-    chat_gpt = ChatGPTClient.build('gpt-4', 'user', 1.0)
+    chat_gpt = ChatGPTClient.build('gpt-3.5-turbo', 'user', 0.0)
     context = 'the Moon'
-    answer = chat_gpt.post(f'What is the color of {context}')
-    print(f'Answer: {answer}')
+    answer, num_tokens = chat_gpt.post(f'What is the color of {context}')
+    print(f'Answer: {answer} with {num_tokens} tokens')
