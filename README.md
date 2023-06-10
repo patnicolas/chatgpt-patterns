@@ -13,6 +13,7 @@ Prompt engineering patterns for code generation. Experimental work
 |scikit-learn|1.2.2|
 |numpy|1.24.3|
 |pandas|2.0.2|
+|langchain|0.0.15|
 
 
 # Updates

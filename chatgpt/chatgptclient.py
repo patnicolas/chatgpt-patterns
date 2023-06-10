@@ -64,8 +64,8 @@ class ChatGPTResponse:
     choices: []
     usage: ChatGPTUsage
 
+
 class ChatGPTClient(object):
-    import constants
     # static variable for the API key and the default maximum number of tokens returned
     openai.api_key = load_api_key()
     default_max_tokens = 256
@@ -136,5 +136,5 @@ class ChatGPTClient(object):
 if __name__ == '__main__':
     chat_gpt = ChatGPTClient.build('gpt-3.5-turbo', 'user', 0.0)
     context = 'the Moon'
-    answer, num_tokens = chat_gpt.post(f'What is the color of {context}')
+    answer, num_tokens = chat_gpt.post("""Translate the text delimited by triple backticks into french,```this is a good time to walk```""")
     print(f'Answer: {answer} with {num_tokens} tokens')
