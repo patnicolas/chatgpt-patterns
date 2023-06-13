@@ -3,32 +3,27 @@ __copyright__ = "Copyright 2022, 23. All rights reserved."
 
 import openai
 from chatgpt.chatgptclient import ChatGPTRequest
-from chatgpt import load_api_key
-
 
 
 class ChatGPTBot(object):
     import constants
     # static variable for the API key and the default maximum number of tokens returned
-    openai.api_key = load_api_key()
     default_max_tokens = 128
 
     def __init__(self, context: str, chatGPTRequest: ChatGPTRequest):
-        self.context = [{'role':'system', 'content':context}]
-
-
+        self.context = [{'role': 'system', 'content': context}]
 
         self.chatGPTRequest = chatGPTRequest
         self.window = tk.Tk()
         self.window.title("Chat Bot")
         self.window.geometry("340x220")
-        frm = ttk.Frame(self.window, padding = 12)
+        frm = ttk.Frame(self.window, padding=12)
         frm.grid()
         frm.pack()
-        ttk.Label(frm, text='My entry').grid(column = 0, row = 0)
-        entry_var = StringVar(self.window, name = 'entry_var')
+        ttk.Label(frm, text='My entry').grid(column=0, row=0)
+        entry_var = StringVar(self.window, name='entry_var')
         entry_var.set('hello var')
-        ttk_entry = ttk.Entry(frm, textvariable = entry_var)
+        ttk_entry = ttk.Entry(frm, textvariable=entry_var)
         ttk_entry.pack()
         # Create an entry widget for user input
         self.button = ttk.Button(frm, text='Send', command=self.window.destroy)

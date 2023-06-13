@@ -2,6 +2,11 @@ __author__ = "Patrick Nicolas"
 __copyright__ = "Copyright 2022, 23. All rights reserved."
 
 
+import os
+import openai
+
+openai.api_key = os.getenv("OPENAI_API_KEY")
+
 def load_api_key() -> str:
     """
         Global function shared by all class in this package

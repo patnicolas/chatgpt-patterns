@@ -4,9 +4,8 @@ __copyright__ = "Copyright 2022, 23. All rights reserved."
 import openai
 from dataclasses import dataclass
 from typing import TypeVar
-from chatgpt import load_api_key
 
-Instancetype = TypeVar('Instancetype', bound='ChatGPT')
+Instancetype = TypeVar('Instancetype', bound='ChatGPTClient')
 
 
 @dataclass
@@ -67,7 +66,6 @@ class ChatGPTResponse:
 
 class ChatGPTClient(object):
     # static variable for the API key and the default maximum number of tokens returned
-    openai.api_key = load_api_key()
     default_max_tokens = 256
 
     def __init__(self, chat_gpt_request: ChatGPTRequest):
@@ -136,5 +134,5 @@ class ChatGPTClient(object):
 if __name__ == '__main__':
     chat_gpt = ChatGPTClient.build('gpt-3.5-turbo', 'user', 0.0)
     context = 'the Moon'
-    answer, num_tokens = chat_gpt.post("""Translate the text delimited by triple backticks into french,```this is a good time to walk```""")
+    answer, num_tokens = chat_gpt.post("""Please compute the TF-IDF (Term frequency-Inverse Document frequency) score for words in the documents delimited by triple backticks,```this is a good time to walk```but not a good time to run```""")
     print(f'Answer: {answer} with {num_tokens} tokens')
