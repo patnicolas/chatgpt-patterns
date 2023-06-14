@@ -12,26 +12,28 @@ Instancetype = TypeVar('Instancetype', bound='ChatGPTTypedSequence')
 """
     This class extends the langchain sequences by defining explicitly 
     - Task or goal of the request to ChatGPT
-    - Typed arguments for the task (i.e 
-    Examples:
+    - Typed arguments for the task
+    The components of the prompt/message
+    - Definition of the task (i.e. 'compute the exponential value of')
+    - Input variables defined as tuple (name, type, condition) (i.e.  'x', 'list[float]', 'value < 0.8')
 """
 
 
-class ChatGPTTypedSequence(object):
-    def __init__(self, _temperature: float, task_builder: Callable[[str, list[(str, str)]], str] = None):
+class ChatGPTTypedChains(object):
+    def __init__(self, _temperature: float, task_builder: Callable[[str, list[(str, str, str)]], str] = None):
         """
         Constructor for the typed sequence of LLM chains
         @param task_builder Builder or assembler for the prompt with {task definition and list of
-                                of arguments {name, type} as input and prompt as output
+                                of arguments {name, type, condition} as input and prompt as output
         @param _temperature Temperature for the softmax log probabilities
         @type _temperature: floating value >= 0.0
         """
         self.chains: list[LLMChain] = []
         self.llm = ChatOpenAI(temperature=_temperature)
-        self.task_builder = task_builder if task_builder else ChatGPTTypedSequence.__build_prompt
-        self.arguments: list[(str, str)] = []
+        self.task_builder = task_builder if task_builder else ChatGPTTypedChains.__build_prompt
+        self.arguments: list[str] = []
 
-    def append(self, task_definition: str, arguments: list[(str, str)], _output_key: str) -> int:
+    def append(self, task_definition: str, arguments: list[(str, str, str)], _output_key: str) -> int:
         """
         Add a new stage (LLM chain) into the current workflow...
         @param _output_key: Output key or variable
@@ -40,10 +42,10 @@ class ChatGPTTypedSequence(object):
         """
         # We initialize the input variables for the workflow
         if len(self.arguments) == 0:
-            self.arguments = [key for key, _ in arguments]
+            self.arguments = [key for key, _, _ in arguments]
 
         # Build the prompt for this new prompt
-        this_input_prompt = ChatGPTTypedSequence.__build_prompt(task_definition, arguments)
+        this_input_prompt = ChatGPTTypedChains.__build_prompt(task_definition, arguments)
         this_prompt = ChatPromptTemplate.from_template(this_input_prompt)
 
         # Create a new LLM chain and add it to the sequence
@@ -67,22 +69,29 @@ class ChatGPTTypedSequence(object):
         return chains_sequence(_input_values)
 
     @staticmethod
-    def __build_prompt(task_definition: str, arguments: list[(str, str)]) -> str:
-        embedded_input_vars = ", ".join(
-            ["{" + var_name + "} with type " + var_type for var_name, var_type in arguments])
-        return f'{task_definition} {embedded_input_vars}'
+    def __build_prompt(task_definition: str, arguments: list[(str, str, str)]) -> str:
+        def set_prompt(var_name: str, var_type: str, var_condition: str) -> str:
+            prompt_variable_prefix = "{" + var_name + "} with type " + var_type
+            return prompt_variable_prefix + " and " + var_condition \
+                if not bool(var_condition) \
+                else \
+                prompt_variable_prefix
 
+        embedded_input_vars = ", ".join(
+            [set_prompt(var_name, var_type, var_condition) for var_name, var_type, var_condition in arguments]
+        )
+        return f'{task_definition} {embedded_input_vars}'
 
 
 def numeric_map_reduce() -> dict[str, str]:
     import math
 
-    chat_gpt_seq = ChatGPTTypedSequence(0.0)
+    chat_gpt_seq = ChatGPTTypedChains(0.0)
     # First task: Map function x: math(x*0.001)
     input_x = ','.join([str(math.sin(n * 0.001)) for n in range(128)])
-    chat_gpt_seq.append("Sum these values ", [('x', 'list[float]')], 'res')
+    chat_gpt_seq.append("Sum these values ", [('x', 'list[float]', 'for value < 0.5')], 'res')
     # Second task: reduce function u: sum(x)
-    chat_gpt_seq.append("Compute the exponential value of ", [('res', 'float')], 'u')
+    chat_gpt_seq.append("Compute the exponential value of ", [('res', 'float', '')], 'u')
     input_values = {'x': input_x}
     output: dict[str, str] = chat_gpt_seq(input_values, ["u"])
     return output
@@ -98,18 +107,19 @@ def load_text(file_names: list[str]) -> list[str]:
 
 
 def tf_idf_score() -> str:
-    chat_gpt_seq = ChatGPTTypedSequence(0.0)
+    chat_gpt_seq = ChatGPTTypedChains(0.0)
     input_files = ['../input/file1.txt', '../input/file2.txt', '../input/file2.txt']
     input_documents = '```'.join(load_text(input_files))
     chat_gpt_seq.append(
         "Compute the TF-IDF score for words from documents delimited by triple backticks with output format term:TF-IDF score ```",
-        [('documents', 'list[str]')], 'terms_tf_idf_score')
+        [('documents', 'list[str]', '')], 'terms_tf_idf_score')
     chat_gpt_seq.append("Sort the terms and TF-IDF score by decreasing order of TF-IDF score",
-                        [('terms_tf_idf_score', 'list[float]')], 'ordered_list')
+                        [('terms_tf_idf_score', 'list[float]', '')], 'ordered_list')
 
     output = chat_gpt_seq({'documents': input_documents}, ["ordered_list"])
     return output['ordered_list']
 
 
 if __name__ == '__main__':
-    print(tf_idf_score())
+    print(numeric_map_reduce())
+    # print(tf_idf_score())
