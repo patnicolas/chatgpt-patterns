@@ -2,10 +2,29 @@
 <html>
 <head>
     <title>Home</title>
+    <style>
+    body {
+        background-image: url("./background_img.jpg");
+        background-repeat: no-repeat, repeat;
+        background-color: #cccccc;
+    }
+    progress[value] {
+        width: 500px;
+        height: 42px;
+    }
+    </style>
 </head>
 <body>
     <h3>Welcome to ChatGPT!</h3>
-    <form action="/prompt" method="post" name="form_name" style="text-align: center">
+    <div>
+        <center>
+    <label for="file" style="font-size:14pt">Progress project</label>
+    <progress id="file" value="31" max="100"> 49% </progress>
+            </center>
+    </div>
+    <br>
+    <br>
+    <form action="/prompt" method="post" name="fname" style="text-align: center">
         <label for="fname" >Prompt:</label>
         <input type="text" id="fname" name="fname" size="100"><br><br>
         <button type="submit" style="text-align: center">Send</button>

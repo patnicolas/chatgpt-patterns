@@ -83,14 +83,14 @@ class ChatGPTTypedChains(object):
         return f'{task_definition} {embedded_input_vars}'
 
 
-def numeric_map_reduce() -> dict[str, str]:
+def numeric_tasks() -> dict[str, str]:
     import math
 
     chat_gpt_seq = ChatGPTTypedChains(0.0)
-    # First task: Map function x: math(x*0.001)
+    # First task: lambda function x: math(x*0.001)
     input_x = ','.join([str(math.sin(n * 0.001)) for n in range(128)])
     chat_gpt_seq.append("Sum these values ", [('x', 'list[float]', 'for value < 0.5')], 'res')
-    # Second task: reduce function u: sum(x)
+    # Second task: function u: exp(sum(x))
     chat_gpt_seq.append("Compute the exponential value of ", [('res', 'float', '')], 'u')
     input_values = {'x': input_x}
     output: dict[str, str] = chat_gpt_seq(input_values, ["u"])
