@@ -9,25 +9,115 @@
         background-color: #cccccc;
     }
     progress[value] {
-        width: 500px;
-        height: 42px;
+        width: 1040px;
+        height: 50px;
+    }
+    label {
+        font-size:20px
+    }
+    table {
+        width:1040px;
+        border: 1px solid black;
+        border-collapse: collapse;
+    }
+    #control {
+        border: 0px solid black;
+        width:700px;
+    }
+    td.c {
+       border: 0px solid black;
+       font-size:18px;
+    }
+    tr:nth-child(even) {
+      background-color: rgba(255, 255, 0, 0.4);
+    }
+    th, td {
+        border: 1px solid black;
+        font-size:18px;
+    }
+    form {
+        vertical-align: middle;
+    }
+    input {
+        font-size:24px;
+     }
+    button {
+        font-size:20px
     }
     </style>
 </head>
 <body>
-    <h3>Welcome to ChatGPT!</h3>
+    <h3>Welcome, Jack Smith - last login June 5, 2023</h3>
     <div>
-        <center>
-    <label for="file" style="font-size:14pt">Progress project</label>
-    <progress id="file" value="31" max="100"> 49% </progress>
-            </center>
+    <label for="timeline">Progress timeline: 21%</label><br>
+    <progress id="timeline" value="33" max="160"> 49% </progress>
+    </div>
+    <div>
+    <label for="cost">Cost: 69,780.00</label><br>
+    <progress id="cost" value="51" max="160"> 40% </progress>
     </div>
     <br>
     <br>
-    <form action="/prompt" method="post" name="fname" style="text-align: center">
-        <label for="fname" >Prompt:</label>
-        <input type="text" id="fname" name="fname" size="100"><br><br>
-        <button type="submit" style="text-align: center">Send</button>
+    <table>
+        <tr>
+            <th>Step</th><th>Status</th><th>Target date</th>
+        </tr>
+        <tr style="background-color: rgba(255, 255, 255, 1.0);color:#C70039;font-weight:bold">
+            <td style="width:160px;">Finalize requirements</td>
+            <td style="width:300px;">Completed on June 12, 2023, reviewed by Alex</td>
+            <td style="width:70px;text-align:right;">June 18, 2023</td>
+        </tr>
+        <tr style="background-color: rgba(255, 255, 255, 1.0);color:#C70039;font-weight:bold">
+            <td>Approve budget and contingency plan</td> <td>$255,000 + 12% contingency</td><td style="text-align:right;">June 25, 2023</td>
+        </tr>
+          <tr>
+            <td>Create design/floor plan</td> <td style="font-style:italic;">In-progress, expected July 6</td><td style="text-align:right;">July 8, 2023</td>
+        </tr>
+        <tr>
+            <td>Select general contractor</td> <td></td><td style="text-align:right;">July 21, 2023</td>
+        </tr>
+          <tr>
+            <td>Apply for permits</td><td></td><td style="text-align:right;">August 9, 2023</td>
+        </tr>
+        <tr>
+            <td>Select material & fixtures</td><td></td><td style="text-align:right;">August 17, 2023</td>
+        </tr>
+        <tr>
+            <td>Schedule various tasks</td><td></td><td style="text-align:right;">August 22, 2023</td>
+        </tr>
+        <tr>
+            <td>Start project</td><td></td><td style="text-align:right;">August 27, 2023</td>
+        </tr>
+        <tr>
+            <td>Complete project</td><td></td><td style="text-align:right;">Nov 19, 2023</td>
+        </tr>
+        <tr>
+            <td>Conduct last inspection</td><td></td><td style="text-align:right;">Nov 23, 2023</td>
+        </tr>
+        <tr>
+            <td>Final walkthrough and approval</td><td></td><td style="text-align:right;">Dec 8, 2023</td>
+        </tr>
+        <tr>
+            <td>Complete clean up</td><td></td><td style="text-align:right;">Dec 13, 2023</td>
+        </tr>
+    </table>
+    <br>
+    <br>
+
+    <form action="/prompt" method="post" name="fname" style="font-size:18px;">
+        <table id="control">
+            <tr class="c">
+                <td class="c">
+            <label for="fname" >Question.</label>
+                </td>
+                <td class="c">
+            <input type="text" id="fname" name="fname" size="70"><br>
+                    </td>
+                <td class="c">
+            <button type="submit" style="align:right;">Send</button>
+                </td>
+            </tr>
+        </table>
     </form>
 </body>
 </html>

@@ -5,12 +5,5 @@ __copyright__ = "Copyright 2022, 23. All rights reserved."
 import os
 import openai
 
-openai.api_key = os.getenv("OPENAI_API_KEY")
-
-def load_api_key() -> str:
-    """
-        Global function shared by all class in this package
-    """
-    with open('../.encrypted.ctx', 'r') as f:
-        key = f.read()
-    return key
+openai.api_key=os.getenv("OPENAI_API_KEY")
+serpapi_api_key=os.getenv("SERPAPI_API_KEY")

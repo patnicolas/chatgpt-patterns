@@ -3,7 +3,7 @@ __copyright__ = "Copyright 2022, 23. All rights reserved."
 
 import openai
 from dataclasses import dataclass
-from typing import TypeVar
+from typing import TypeVar, AnyStr
 
 Instancetype = TypeVar('Instancetype', bound='ChatGPTClient')
 
@@ -12,9 +12,9 @@ Instancetype = TypeVar('Instancetype', bound='ChatGPTClient')
 class ChatGPTRequest:
     """
         Data class for the generic request to ChatGPT API
-        :param Identifier of the model (i.e. gpt-3.5-turbo)
-        :param role of the user {system|user|assistant}
-        :param Hyper-parameter that adjusts the distribution (softmax) for the prediction of the next word/token
+        :param model Identifier of the model (i.e. gpt-3.5-turbo)
+        :param user of the user {system|user|assistant}
+        :param temperature hyper-parameters that adjusts the distribution (softmax) for the prediction of the next word/token
         :param max_tokens Limit the number of tokens used in the response
         :param top_p Sample the tokens with top_p probability.
         :param n Number of solutions/predictions
@@ -79,7 +79,7 @@ class ChatGPTClient(object):
         return str(self.chat_gpt_request)
 
     @classmethod
-    def build(cls, model: str, role: str, temperature: float) -> Instancetype:
+    def build(cls, model: AnyStr, role: str, temperature: float) -> Instancetype:
         """
             Static constructor or builder for model, user and temperature request parameters and
             using all other default parameters.
@@ -91,7 +91,7 @@ class ChatGPTClient(object):
         chat_gpt_request = ChatGPTRequest(model, role, temperature, ChatGPTClient.default_max_tokens, 1, 1, 0, 0)
         return cls(chat_gpt_request)
 
-    def post(self, prompt: str) -> (str, int):
+    def post(self, prompt: AnyStr) -> (AnyStr, int):
         """
             Post a prompt/request to ChatGPT given the parameters defined in the constructor.
             It only returns the content of the message
@@ -110,7 +110,7 @@ class ChatGPTClient(object):
         except  openai.error.AuthenticationError as e:
             logging.error(f'Failed as {str(e)}')
 
-    def post_dev(self, prompt: str) -> ChatGPTResponse:
+    def post_dev(self, prompt: AnyStr) -> ChatGPTResponse:
         """
             Post a prompt/request to ChatGPT given the parameters defined in the constructor.
             The entire response is objectified
@@ -134,5 +134,8 @@ class ChatGPTClient(object):
 if __name__ == '__main__':
     chat_gpt = ChatGPTClient.build('gpt-3.5-turbo', 'user', 0.0)
     context = 'the Moon'
-    answer, num_tokens = chat_gpt.post("""Please compute the TF-IDF (Term frequency-Inverse Document frequency) score for words in the documents delimited by triple backticks,```this is a good time to walk```but not a good time to run```""")
+    answer, num_tokens = chat_gpt.post(
+        """Please compute the TF-IDF (Term frequency-Inverse Document frequency) score for words in the two documents 
+        delimited by triple backticks,```this is a good time to walk```, ```but not a good time to run```"""
+    )
     print(f'Answer: {answer} with {num_tokens} tokens')

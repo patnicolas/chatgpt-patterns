@@ -7,19 +7,20 @@ from collections.abc import Callable
 from langchain.output_parsers import ResponseSchema
 from langchain.output_parsers import StructuredOutputParser
 import openai
+from typing import Dict, AnyStr, Any, List
 
 
 class ChatGPTChain(object):
 
-    def __init__(self, temp: float, template: Callable[dict[str, any], str]):
+    def __init__(self, temp: float, template: Callable[Dict[AnyStr, Any], AnyStr]):
         self.template = template
         self.chat = ChatOpenAI(temperature=temp)
 
-    def get_arguments(self, **kwargs: dict[str, any]) -> list[str]:
+    def get_arguments(self, **kwargs: Dict[AnyStr, Any]) -> List[AnyStr]:
         prompt_template = self.__get_prompt(**kwargs)
         return prompt_template.messages[0].input_variables
 
-    async def __call__(self, **kwargs: dict[str, any]) -> str:
+    def __call__(self, **kwargs: Dict[AnyStr, Any]) -> AnyStr:
         """
         Generic call for the
         @param kwargs: Dictionary arguments
@@ -36,7 +37,7 @@ class ChatGPTChain(object):
             logging.error(str(e))
             return ""
 
-    def get_output_parser(self, input_message: str, output_format: dict[str, str]) -> dict[str, str]:
+    def get_output_parser(self, input_message: AnyStr, output_format: Dict[AnyStr, AnyStr]) -> Dict[AnyStr, AnyStr]:
         acc = []
         response_schemas = []
         for param_name, param_desc in output_format.items():
@@ -63,7 +64,7 @@ class ChatGPTChain(object):
         return ChatPromptTemplate.from_template(template_str)
 
 
-def get_template(**kwargs: dict[str, any]) -> str:
+def get_template(**kwargs: Dict[AnyStr, Any]) -> AnyStr:
     language = kwargs['language']
     text = kwargs['text']
     instruction = f'Translate the text that is delimited by triple backticks into a language {language}. text ```{text}```'
