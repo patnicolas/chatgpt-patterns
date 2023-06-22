@@ -1,5 +1,9 @@
-# chatgpt-patterns
-*Patrick Nicolas last update 06.07.2023*
+### Patrick Nicolas - Last update 06.17.2023
+
+![Banner](images/telecom.jpeg)
+
+
+
 
 The objective is this framework is to evaluate and extended Prompt engineering techniques to build applications. These techniques include
 - Prompt patterns: *Output automater*, *Persona*, *Fact checking template* and *cognitive verifier*

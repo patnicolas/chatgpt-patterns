@@ -2,7 +2,6 @@ __author__ = "Patrick Nicolas"
 __copyright__ = "Copyright 2022, 23. All rights reserved."
 
 import torch
-from sklearn.manifold import TSNE
 from matplotlib import pyplot as plt
 import numpy as np
 

@@ -5,7 +5,9 @@ from chatgpt.chatgptagent import ChatGPTAgent
 from langchain.chat_models import ChatOpenAI
 from langchain.agents import AgentExecutor
 from langchain.tools.json.tool import JsonSpec
-from typing import AnyStr, TypeVar, Any
+from typing import AnyStr, TypeVar, Any, List
+from domain.contractor import Contractor
+from langchain.tools import Tool
 
 Instancetype = TypeVar('Instancetype', bound='ChatGPTToolkitAgent')
 
@@ -51,18 +53,6 @@ class ChatGPTToolkitAgent(ChatGPTAgent):
             sql_agent = create_sql_agent(llm=chat_handle, toolkit=sql_toolkit, verbose=True)
             return cls(chat_handle, sql_agent)
 
-        elif agent_name == "json":
-            import json
-            from langchain.agents.agent_toolkits import JsonToolkit
-            from langchain.agents import create_json_agent
-
-            with open(argument) as f:
-                data = json.load(f)
-                json_spec = JsonSpec(dict_=data, max_value_length=4096)
-                json_toolkit = JsonToolkit(spec=json_spec)
-                json_agent = create_json_agent(llm=chat_handle, toolkit=json_toolkit, verbose=True)
-                return cls(chat_handle, json_agent)
-
         elif agent_name == "csv":
             from langchain.agents import create_csv_agent
 
@@ -85,3 +75,42 @@ class ChatGPTToolkitAgent(ChatGPTAgent):
             raise NotImplementedError(f'Agent {agent_name} is not supported')
 
 
+    @staticmethod
+    def load_from_json(argument: AnyStr) -> List[Contractor]:
+        import json
+        from langchain.agents.agent_toolkits import JsonToolkit
+        from langchain.agents import create_json_agent
+
+        filename = f'/Users/patricknicolas/dev/chatgpt-patterns/input/{argument}'
+        chat_handle = ChatOpenAI(temperature=0)
+        with open(filename) as f:
+            content = f.read()
+            json_array = content.split('},')
+            result = [json.loads(entry) for entry in json_array]
+            return result
+
+       #  return Tool.from_function(func=agent.run, name="load json", description="Load JSON data from a local file")
+
+
+
+if __name__ == '__main__':
+    from domain.contractors import Contractors
+
+    contractors_list = Contractors.load('../input/contractors.json')
+    print(str(contractors_list))
+    chat = ChatOpenAI(temperature=0)
+    chatGPTJsonAgent = ChatGPTToolkitAgent.build_from_toolkit(chat, 'json', '../input/contractors.json')
+    answer1 = chatGPTJsonAgent.run("List all the contractors in San Jose")
+    print(answer1)
+"""
+    tools = ['llm-math']
+    from chatgpt.chatgpttoolagent import ChatGPTToolAgent
+    from langchain.agents import AgentType
+    from langchain.tools.python.tool import PythonREPLTool
+
+    chatGPTSimpleAgent = ChatGPTToolAgent.build(tools, AgentType.ZERO_SHOT_REACT_DESCRIPTION, True)
+    chatGPTSimpleAgent.append_tool(PythonREPLTool())
+    answer2 = chatGPTSimpleAgent.run("List all the contractors in San Jose")
+
+    print(answer2)
+  """

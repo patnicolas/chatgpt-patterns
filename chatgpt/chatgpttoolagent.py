@@ -1,7 +1,7 @@
 __author__ = "Patrick Nicolas"
 __copyright__ = "Copyright 2022, 23. All rights reserved."
 
-from langchain.tools import BaseTool
+from langchain.tools import BaseTool, StructuredTool
 from langchain.agents import load_tools, initialize_agent
 from langchain.agents import AgentType, AgentExecutor
 from langchain.tools.python.tool import PythonREPLTool
@@ -63,18 +63,21 @@ class ChatGPTToolAgent(ChatGPTAgent):
 
 
 
-
-
-
-
 if __name__ == '__main__':
-    tools = ['llm-math', 'serpapi']
-    chatGPTSimpleAgent = ChatGPTToolAgent.build(tools, AgentType.ZERO_SHOT_REACT_DESCRIPTION, True)
-    cur_tools_list = chatGPTSimpleAgent.append_tool(PythonREPLTool())
-    print(str(cur_tools_list))
-    input_prompt = "My age is half of my dad's " \
-                   "age. Next year he is going to be same age as Demi Moore. Demi more is 61 year old" \
-                   "What is my current age?"
-    chatGPTSimpleAgent.run(input_prompt)
-    input_prompt = "What is the 12th fibonacci number using Python?"
-    chatGPTSimpleAgent.run(input_prompt)
+
+    tool_names = ['llm-math']
+    chat_gpt_tool_agent = ChatGPTToolAgent.build(tool_names, AgentType.STRUCTURED_CHAT_ZERO_SHOT_REACT_DESCRIPTION, True)
+
+    list_tool_names = chat_gpt_tool_agent.append_tool(PythonREPLTool())
+    print(str(list_tool_names))
+
+    from domain.contractor import load_contractors
+    json_tool = StructuredTool.from_function(
+            func=load_contractors,
+            name="load_contractors",
+            description="Load the list of contractors in JSON format"
+        )
+    list_tool_names = chat_gpt_tool_agent.append_tool(json_tool)
+    print(str(list_tool_names))
+
+    chat_gpt_tool_agent.run("List names of all the contractors")

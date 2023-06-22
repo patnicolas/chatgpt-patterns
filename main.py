@@ -5,8 +5,40 @@
 
 import numpy as np
 
+from typing import AnyStr, Dict, List, Any
+
+def load_contractors(filename: AnyStr) -> List[Dict[AnyStr, Any]]:
+    from domain.contractors import Contractors
+    return Contractors.load(filename)
+
+class CustomToolsList(object):
+    @staticmethod
+    def run(prompt: AnyStr) -> AnyStr:
+        from domain.contractor import load_contractors
+        from chatgpt.chatgpttoolagent import ChatGPTToolAgent
+        from langchain.tools import StructuredTool
+        from langchain.agents import AgentType
+        from langchain.tools.python.tool import PythonREPLTool
+
+        tool_names = ['llm-math']
+        chat_gpt_tool_agent = ChatGPTToolAgent.build(
+            tool_names,
+            AgentType.STRUCTURED_CHAT_ZERO_SHOT_REACT_DESCRIPTION,
+            True)
+        chat_gpt_tool_agent.append_tool(PythonREPLTool())
+        json_tool = StructuredTool.from_function(
+            func=load_contractors,
+            name="load_contractors",
+            description="Load the list of contractors given the file in folder data. load_contractors in module domain.contractor"
+        )
+        chat_gpt_tool_agent.append_tool(json_tool)
+        return chat_gpt_tool_agent.run(prompt)
+
 
 if __name__ == '__main__':
+    CustomToolsList.run("List names of all the contractors specialized in plumbing, located in San Jose")
+
+    """
     x = np.array([0.5, 1.9])
     y = x + 1.0
     print(y)
@@ -36,5 +68,6 @@ if __name__ == '__main__':
         'Confirm', 'Do you want to save?'))
     save.pack(side=TOP, pady=10)
     root.mainloop()
+    """
 
 # See PyCharm help at https://www.jetbrains.com/help/pycharm/
