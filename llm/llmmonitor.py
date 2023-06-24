@@ -7,7 +7,7 @@ import json
 Instancetype = TypeVar('Instancetype', bound='ChatGPTMonitor')
 
 
-class ChatGPTMonitor(object):
+class LLMMonitor(object):
     """
         Class that implements monitoring of training and usage cost for ChatGPT
 
@@ -42,19 +42,19 @@ class ChatGPTMonitor(object):
 
     @classmethod
     def build(cls, monitor_name: str) -> Instancetype:
-        with open(f'{ChatGPTMonitor.monitor_path}/{monitor_name}', 'r') as f:
+        with open(f'{LLMMonitor.monitor_path}/{monitor_name}', 'r') as f:
             content = f.read()
         activities = json.loads(content)
         return cls(monitor_name, activities)
 
     def update(self, num_tokens: int, model_type: str, activity: str):
-        self.activities['cost'] += ChatGPTMonitor.__cost(num_tokens, model_type, activity)
+        self.activities['cost'] += LLMMonitor.__cost(num_tokens, model_type, activity)
         self.activities['num_tokens'] += num_tokens
         self.activities['num_messages'] += 1
         self.activities[f'{activity}-{model_type}'] = self.activities.get(f'{activity}-{model_type}', 0) + 1
 
     def save(self):
-        with open(f'{ChatGPTMonitor.monitor_path}/{self.monitor_name}', 'w') as f:
+        with open(f'{LLMMonitor.monitor_path}/{self.monitor_name}', 'w') as f:
             f.write(json.dumps(self.activities))
 
     def __str__(self) -> str:
@@ -62,23 +62,23 @@ class ChatGPTMonitor(object):
 
     @staticmethod
     def __num_tokens(num_words) -> int:
-        return int(num_words * ChatGPTMonitor.ratio_tokens_words)
+        return int(num_words * LLMMonitor.ratio_tokens_words)
 
     @staticmethod
     def __cost(num_tokens: int, model_type: str, activity: str) -> float:
-        return num_tokens* ChatGPTMonitor.training_token_cost[model_type] \
+        return num_tokens * LLMMonitor.training_token_cost[model_type] \
             if activity == 'training' \
             else \
-            num_tokens * ChatGPTMonitor.usage_token_cost[model_type]
+            num_tokens * LLMMonitor.usage_token_cost[model_type]
 
 
 if __name__ == '__main__':
-    chat_gpt_monitor = ChatGPTMonitor('monitor1', {})
+    chat_gpt_monitor = LLMMonitor('monitor1', {})
     chat_gpt_monitor.update(23, 'gpt-3.5-turbo', 'usage')
     chat_gpt_monitor.update(29, 'gpt-3.5-turbo', 'usage')
     chat_gpt_monitor.update(193, 'davinci', 'training')
 
     print(str(chat_gpt_monitor))
     chat_gpt_monitor.save()
-    chat_gpt_monitor = ChatGPTMonitor.build('monitor1')
+    chat_gpt_monitor = LLMMonitor.build('monitor1')
     print(str(chat_gpt_monitor))

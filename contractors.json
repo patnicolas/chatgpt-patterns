@@ -1,0 +1,10 @@
+{"name": "John doe", "location": "San Jose", "specialty": "plumbing", "hourly_rate": 95.6, "availability": "July 2nd, 2023", "bid_price": 7200, "review_score": 4}
+{"name": "Gary abc Inc.", "location": "San Leandro", "specialty": "plumbing", "hourly_rate": 87.6, "availability": "June 25nd, 2023", "bid_price": 7560, "review_score": 5}
+{"name": "Temple woods corp", "location": "Palo Alto", "specialty": "cabinets", "hourly_rate": 102.0, "availability": "July 8th 2023", "bid_price": 3200, "review_score": 4}
+{"name": "Francis Beacon LLC", "location": "San Jose", "specialty": "plumbing", "hourly_rate": 105.6, "availability": "June 16th, 2023", "bid_price": 8200, "review_score": 4}
+{"name": "Los Gatos happy painters", "location": "Los Gatos", "specialty": "painting", "hourly_rate": 80.0, "availability": "July 2nd, 2023", "bid_price": 2100, "review_score": 3}
+{"name": "Menlo Park Cabinets Inc", "location": "Menlo Park", "specialty": "cabinets", "hourly_rate": 110.0, "availability": "July 11th, 2023", "bid_price": 3500, "review_score": 5}
+{"name": "Sunnyvale Electricians", "location": "Sunnyvale", "specialty": "electrical", "hourly_rate": 110.0, "availability": "June 19th 2023", "bid_price": 2800, "review_score": 3}
+{"name": "Allied Plumbers Inc", "location": "San Jose", "specialty": "plumbing", "hourly_rate": 99.5, "availability": "June 25th, 2023", "bid_price": 7700, "review_score": 5}
+{"name": "Cupertino Electrical Supplies", "location": "Cupertino", "specialty": "electrical", "hourly_rate": 109.0, "availability": "July 5nd, 2023", "bid_price": 3000, "review_score": 4}
+{"name": "Exact Plumbing how tInc", "location": "Menlo Park", "specialty": "plumbing", "hourly_rate": 98.0, "availability": "July 11th, 2023", "bid_price": 7550, "review_score": 4}

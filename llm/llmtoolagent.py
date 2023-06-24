@@ -7,14 +7,14 @@ from langchain.agents import AgentType, AgentExecutor
 from langchain.tools.python.tool import PythonREPLTool
 from langchain.chat_models import ChatOpenAI
 from typing import Optional, List, TypeVar, AnyStr
-from chatgpt.chatgptagent import ChatGPTAgent
+from llm.llmbaseagent import LLMBaseAgent
 
 Instancetype = TypeVar('Instancetype', bound='ChatGPTToolAgent')
 
 
-class ChatGPTToolAgent(ChatGPTAgent):
+class LLMToolAgent(LLMBaseAgent):
     def __init__(self, chat_handle: ChatOpenAI, agent: AgentExecutor, _tools_list: List[AnyStr]):
-        super(ChatGPTToolAgent, self).__init__(chat_handle, agent)
+        super(LLMToolAgent, self).__init__(chat_handle, agent)
         self.tools_list = _tools_list
 
     @classmethod
@@ -66,18 +66,18 @@ class ChatGPTToolAgent(ChatGPTAgent):
 if __name__ == '__main__':
 
     tool_names = ['llm-math']
-    chat_gpt_tool_agent = ChatGPTToolAgent.build(tool_names, AgentType.STRUCTURED_CHAT_ZERO_SHOT_REACT_DESCRIPTION, True)
+    llm_tool_agent = LLMToolAgent.build(tool_names, AgentType.STRUCTURED_CHAT_ZERO_SHOT_REACT_DESCRIPTION, True)
 
-    list_tool_names = chat_gpt_tool_agent.append_tool(PythonREPLTool())
+    list_tool_names = llm_tool_agent.append_tool(PythonREPLTool())
     print(str(list_tool_names))
 
-    from domain.contractor import load_contractors
+    from domain.querycontractors import load_contractors
     json_tool = StructuredTool.from_function(
             func=load_contractors,
             name="load_contractors",
             description="Load the list of contractors in JSON format"
         )
-    list_tool_names = chat_gpt_tool_agent.append_tool(json_tool)
+    list_tool_names = llm_tool_agent.append_tool(json_tool)
     print(str(list_tool_names))
 
-    chat_gpt_tool_agent.run("List names of all the contractors")
+    llm_tool_agent.run("List names of all the contractors")

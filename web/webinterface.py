@@ -4,8 +4,8 @@ __copyright__ = "Copyright 2022, 23. All rights reserved."
 from fastapi import FastAPI, Form, Request
 from fastapi.responses import HTMLResponse
 from fastapi.templating import Jinja2Templates
-from chatgpt.chatgptclient import ChatGPTClient
-from chatgpt.chatgptmonitor import ChatGPTMonitor
+from llm.chatgptclient import ChatGPTClient
+from llm.llmmonitor import LLMMonitor
 
 
 class WebInterface(object):
@@ -20,7 +20,7 @@ class WebInterface(object):
     chat_gpt_temperature = 0
     chat_gpt_role = 'user'
     chat_gpt_client = ChatGPTClient.build(chat_gpt_model, chat_gpt_role, chat_gpt_temperature)
-    chat_gpt_monitor = ChatGPTMonitor.build('monitor.txt')
+    chat_gpt_monitor = LLMMonitor.build('monitor.txt')
 
     @staticmethod
     @app.get("/", response_class=HTMLResponse)

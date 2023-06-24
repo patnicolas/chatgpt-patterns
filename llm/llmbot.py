@@ -2,10 +2,10 @@ __author__ = "Patrick Nicolas"
 __copyright__ = "Copyright 2022, 23. All rights reserved."
 
 import openai
-from chatgpt.chatgptclient import ChatGPTRequest
+from llm.chatgptclient import ChatGPTRequest
 
 
-class ChatGPTBot(object):
+class LLMBot(object):
     import constants
     # static variable for the API key and the default maximum number of tokens returned
     default_max_tokens = 128

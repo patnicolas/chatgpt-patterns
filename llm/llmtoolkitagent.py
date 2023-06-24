@@ -1,18 +1,17 @@
 __author__ = "Patrick Nicolas"
 __copyright__ = "Copyright 2022, 23. All rights reserved."
 
-from chatgpt.chatgptagent import ChatGPTAgent
+from llm.llmbaseagent import LLMBaseAgent
 from langchain.chat_models import ChatOpenAI
 from langchain.agents import AgentExecutor
 from langchain.tools.json.tool import JsonSpec
-from typing import AnyStr, TypeVar, Any, List
-from domain.contractor import Contractor
+from typing import AnyStr, TypeVar, Any, List, Dict
 from langchain.tools import Tool
 
 Instancetype = TypeVar('Instancetype', bound='ChatGPTToolkitAgent')
 
 
-class ChatGPTToolkitAgent(ChatGPTAgent):
+class LLMToolkitAgent(LLMBaseAgent):
     """
         Wrapper for agent which rely on LangChain tool kits suc as Pandas dataframe
             file system, SQL database, Spark query, Json, CSV file loading..
@@ -21,7 +20,7 @@ class ChatGPTToolkitAgent(ChatGPTAgent):
         :param agent LangChain agent executor
     """
     def __init__(self, chat_handle: ChatOpenAI, agent: AgentExecutor):
-        super(ChatGPTToolkitAgent, self).__init__(chat_handle, agent)
+        super(LLMToolkitAgent, self).__init__(chat_handle, agent)
 
     @classmethod
     def build_from_toolkit(cls,  chat_handle: ChatOpenAI, agent_name: AnyStr, argument: Any) -> Instancetype:
@@ -74,9 +73,8 @@ class ChatGPTToolkitAgent(ChatGPTAgent):
         else:
             raise NotImplementedError(f'Agent {agent_name} is not supported')
 
-
     @staticmethod
-    def load_from_json(argument: AnyStr) -> List[Contractor]:
+    def load_from_json(argument: AnyStr) -> List[Dict[AnyStr, Any]]:
         import json
         from langchain.agents.agent_toolkits import JsonToolkit
         from langchain.agents import create_json_agent
@@ -89,8 +87,6 @@ class ChatGPTToolkitAgent(ChatGPTAgent):
             result = [json.loads(entry) for entry in json_array]
             return result
 
-       #  return Tool.from_function(func=agent.run, name="load json", description="Load JSON data from a local file")
-
 
 
 if __name__ == '__main__':
@@ -99,12 +95,12 @@ if __name__ == '__main__':
     contractors_list = Contractors.load('../input/contractors.json')
     print(str(contractors_list))
     chat = ChatOpenAI(temperature=0)
-    chatGPTJsonAgent = ChatGPTToolkitAgent.build_from_toolkit(chat, 'json', '../input/contractors.json')
-    answer1 = chatGPTJsonAgent.run("List all the contractors in San Jose")
+    llm_json_agent = LLMToolkitAgent.build_from_toolkit(chat, 'json', '../input/contractors.json')
+    answer1 = llm_json_agent.run("List all the contractors in San Jose")
     print(answer1)
 """
     tools = ['llm-math']
-    from chatgpt.chatgpttoolagent import ChatGPTToolAgent
+    from llm.chatgpttoolagent import ChatGPTToolAgent
     from langchain.agents import AgentType
     from langchain.tools.python.tool import PythonREPLTool
 

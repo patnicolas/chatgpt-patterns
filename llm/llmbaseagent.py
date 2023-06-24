@@ -6,7 +6,7 @@ from typing import AnyStr
 from langchain.chat_models import ChatOpenAI
 
 
-class ChatGPTAgent(object):
+class LLMBaseAgent(object):
     """
         Generic LangChain agent to be used with ChatGPT
         :param chat_handle Handle or reference to the large language model

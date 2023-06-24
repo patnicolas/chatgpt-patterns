@@ -7,7 +7,7 @@ from langchain.chains import SequentialChain, LLMChain
 from collections.abc import Callable
 from typing import TypeVar
 
-Instancetype = TypeVar('Instancetype', bound='ChatGPTTypedSequence')
+Instancetype = TypeVar('Instancetype', bound='LLMTypedChains')
 
 """
     This class extends the langchain sequences by defining explicitly 
@@ -19,7 +19,7 @@ Instancetype = TypeVar('Instancetype', bound='ChatGPTTypedSequence')
 """
 
 
-class ChatGPTTypedChains(object):
+class LLMTypedChains(object):
     def __init__(self, _temperature: float, task_builder: Callable[[str, list[(str, str, str)]], str] = None):
         """
         Constructor for the typed sequence of LLM chains
@@ -30,7 +30,7 @@ class ChatGPTTypedChains(object):
         """
         self.chains: list[LLMChain] = []
         self.llm = ChatOpenAI(temperature=_temperature)
-        self.task_builder = task_builder if task_builder else ChatGPTTypedChains.__build_prompt
+        self.task_builder = task_builder if task_builder else LLMTypedChains.__build_prompt
         self.arguments: list[str] = []
 
     def append(self, task_definition: str, arguments: list[(str, str, str)], _output_key: str) -> int:
@@ -45,7 +45,7 @@ class ChatGPTTypedChains(object):
             self.arguments = [key for key, _, _ in arguments]
 
         # Build the prompt for this new prompt
-        this_input_prompt = ChatGPTTypedChains.__build_prompt(task_definition, arguments)
+        this_input_prompt = LLMTypedChains.__build_prompt(task_definition, arguments)
         this_prompt = ChatPromptTemplate.from_template(this_input_prompt)
 
         # Create a new LLM chain and add it to the sequence
@@ -86,7 +86,7 @@ class ChatGPTTypedChains(object):
 def numeric_tasks() -> dict[str, str]:
     import math
 
-    chat_gpt_seq = ChatGPTTypedChains(0.0)
+    chat_gpt_seq = LLMTypedChains(0.0)
     # First task: lambda function x: math(x*0.001)
     input_x = ','.join([str(math.sin(n * 0.001)) for n in range(128)])
     chat_gpt_seq.append("Sum these values ", [('x', 'list[float]', 'for value < 0.5')], 'res')
@@ -107,19 +107,19 @@ def load_text(file_names: list[str]) -> list[str]:
 
 
 def tf_idf_score() -> str:
-    chat_gpt_seq = ChatGPTTypedChains(0.0)
+    llm_typed_chains = LLMTypedChains(0.0)
     input_files = ['../input/file1.txt', '../input/file2.txt', '../input/file2.txt']
     input_documents = '```'.join(load_text(input_files))
-    chat_gpt_seq.append(
+    llm_typed_chains.append(
         "Compute the TF-IDF score for words from documents delimited by triple backticks with output format term:TF-IDF score ```",
         [('documents', 'list[str]', '')], 'terms_tf_idf_score')
-    chat_gpt_seq.append("Sort the terms and TF-IDF score by decreasing order of TF-IDF score",
+    llm_typed_chains.append("Sort the terms and TF-IDF score by decreasing order of TF-IDF score",
                         [('terms_tf_idf_score', 'list[float]', '')], 'ordered_list')
 
-    output = chat_gpt_seq({'documents': input_documents}, ["ordered_list"])
+    output = llm_typed_chains({'documents': input_documents}, ["ordered_list"])
     return output['ordered_list']
 
 
 if __name__ == '__main__':
-    print(numeric_map_reduce())
+    print(numeric_tasks())
     # print(tf_idf_score())

@@ -10,7 +10,7 @@ import openai
 from typing import Dict, AnyStr, Any, List
 
 
-class ChatGPTChain(object):
+class LLMChainNode(object):
 
     def __init__(self, temp: float, template: Callable[Dict[AnyStr, Any], AnyStr]):
         self.template = template
@@ -72,6 +72,6 @@ def get_template(**kwargs: Dict[AnyStr, Any]) -> AnyStr:
 
 
 if __name__ == '__main__':
-    chat_gpt_chain = ChatGPTChain(0.2, get_template)
+    chat_gpt_chain = LLMChainNode(0.2, get_template)
     response = chat_gpt_chain(**{'language': 'french', 'text': 'this is a good time to walk'})
     print(response)

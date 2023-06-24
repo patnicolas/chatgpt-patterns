@@ -5,14 +5,14 @@ import pandas as pd
 from util.ioutil import IOUtil
 
 
-class ChatGPTFineTuning(object):
+class LLMFineTuning(object):
     prompt_delimiter = '\n\n###\n\n'
     completion_delimiter = '###'
 
     def __init__(self, training_file: str, validation_file: str):
-        self.df_train_set = ChatGPTFineTuning.__add_delimiters(training_file)
+        self.df_train_set = LLMFineTuning.__add_delimiters(training_file)
         if validation_file:
-            self.df_valid_set = ChatGPTFineTuning.__add_delimiters(validation_file)
+            self.df_valid_set = LLMFineTuning.__add_delimiters(validation_file)
 
     def __getitem__(self, items: tuple) -> (str, str):
         if items[0] == 'training':
@@ -31,9 +31,9 @@ class ChatGPTFineTuning(object):
         df = pd.DataFrame(raw_entry, columns=['prompt', 'completion'])
         for index in range(len(df)):
             raw_prompt = df.at[index, 'prompt']
-            var = df.at[index, 'prompt'] = f'{raw_prompt} {ChatGPTFineTuning.prompt_delimiter}'
+            var = df.at[index, 'prompt'] = f'{raw_prompt} {LLMFineTuning.prompt_delimiter}'
             raw_completion = df.at[index, 'completion']
-            df.at[index, 'completion'] = f'{raw_completion} {ChatGPTFineTuning.completion_delimiter}'
+            df.at[index, 'completion'] = f'{raw_completion} {LLMFineTuning.completion_delimiter}'
         return df
 
 
@@ -41,6 +41,6 @@ if __name__ == '__main__':
     training_test_file = "../input/train_test.json"
     validation_test_file = "../input/valid_test.json"
 
-    chat_gpt_fine_tuning = ChatGPTFineTuning(training_test_file, validation_test_file)
+    chat_gpt_fine_tuning = LLMFineTuning(training_test_file, validation_test_file)
     training_set_row = chat_gpt_fine_tuning[('training', 2)]
     print(str(training_set_row))
