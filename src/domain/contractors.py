@@ -92,7 +92,7 @@ if __name__ == '__main__':
 
     contractors.save('../data/contractors.json')
     """
-    contractors = Contractors.build('../data/contractors.json')
+    contractors = Contractors.build('../../data/contractors.json')
     print(str(contractors))
     san_jose_contractors = contractors.query({'location': 'San Jose'})
     print('\n'.join([str(c) for c in  san_jose_contractors]))

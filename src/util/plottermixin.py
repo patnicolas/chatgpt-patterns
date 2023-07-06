@@ -4,7 +4,7 @@ __copyright__ = "Copyright 2022, 23. All rights reserved."
 import numpy as np
 from matplotlib import pyplot as plt
 from datetime import datetime
-import constants
+from src import constants
 
 """
     Wraps the parameters for plots. The static methods generated a '.png' file which name is time stamped.

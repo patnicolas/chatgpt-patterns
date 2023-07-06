@@ -1,12 +1,10 @@
 __author__ = "Patrick Nicolas"
 __copyright__ = "Copyright 2022, 23. All rights reserved."
 
-from llm.llmbaseagent import LLMBaseAgent
+from src.llm.llmbaseagent import LLMBaseAgent
 from langchain.chat_models import ChatOpenAI
 from langchain.agents import AgentExecutor
-from langchain.tools.json.tool import JsonSpec
 from typing import AnyStr, TypeVar, Any, List, Dict
-from langchain.tools import Tool
 
 Instancetype = TypeVar('Instancetype', bound='ChatGPTToolkitAgent')
 
@@ -76,8 +74,6 @@ class LLMToolkitAgent(LLMBaseAgent):
     @staticmethod
     def load_from_json(argument: AnyStr) -> List[Dict[AnyStr, Any]]:
         import json
-        from langchain.agents.agent_toolkits import JsonToolkit
-        from langchain.agents import create_json_agent
 
         filename = f'/Users/patricknicolas/dev/chatgpt-patterns/input/{argument}'
         chat_handle = ChatOpenAI(temperature=0)
@@ -90,9 +86,9 @@ class LLMToolkitAgent(LLMBaseAgent):
 
 
 if __name__ == '__main__':
-    from domain.contractors import Contractors
+    from src.domain.contractors import Contractors
 
-    contractors_list = Contractors.load('../input/contractors.json')
+    contractors_list = Contractors.load('../../input/contractors.json')
     print(str(contractors_list))
     chat = ChatOpenAI(temperature=0)
     llm_json_agent = LLMToolkitAgent.build_from_toolkit(chat, 'json', '../input/contractors.json')

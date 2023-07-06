@@ -27,6 +27,19 @@ class Operators:
 
 
 if __name__ == '__main__':
+    import string
+    import pathlib
+    from string import Template
+    # query: str = pathlib.Path('query.sql').read_text()
+    query = "SELECT * FROM MyTable where start_date < $start_date limit $limit"
+    t = Template(query)
+    vals = {'limit': 10, 'start_date': '2023-05-11'}
+    print(t.substitute(vals))
+
+    text = "my string"
+    reversed_text = text[::-1]
+    print(reversed_text)
+
     x = Operators(3.45)
     y = Operators(3.1)
     print(x*y)

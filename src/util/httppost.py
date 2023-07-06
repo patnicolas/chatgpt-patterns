@@ -3,9 +3,8 @@ __copyright__ = "Copyright 2022, 23. All rights reserved."
 
 import requests
 import time
-import constants
+from src import constants
 import urllib3
-from util.decorators import timeit
 
 """"
     Simple synchronous implementation of HTTP post using JSON input_tensor line or file. The target can be defined as 

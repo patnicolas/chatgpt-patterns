@@ -29,8 +29,8 @@ class SimpleQueryContractors(BaseTool):
 
 
 def simple_query_contractors(_conditions: List[str]) -> AnyStr:
-    from domain.contractors import Contractors
-    from domain.htmltable import format_html
+    from src.domain.contractors import Contractors
+    from src.domain.htmltable import format_html
     contractors = Contractors.build('data/contractors.json')
     conditions_dictionary: Dict[AnyStr, Any] = {}
     for condition in _conditions:

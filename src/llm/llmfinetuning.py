@@ -2,7 +2,7 @@ __author__ = "Patrick Nicolas"
 __copyright__ = "Copyright 2022, 23. All rights reserved."
 
 import pandas as pd
-from util.ioutil import IOUtil
+from src.util import IOUtil
 
 
 class LLMFineTuning(object):
@@ -38,8 +38,8 @@ class LLMFineTuning(object):
 
 
 if __name__ == '__main__':
-    training_test_file = "../input/train_test.json"
-    validation_test_file = "../input/valid_test.json"
+    training_test_file = "../../input/train_test.json"
+    validation_test_file = "../../input/valid_test.json"
 
     chat_gpt_fine_tuning = LLMFineTuning(training_test_file, validation_test_file)
     training_set_row = chat_gpt_fine_tuning[('training', 2)]

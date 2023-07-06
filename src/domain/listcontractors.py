@@ -26,6 +26,6 @@ class ListContractors(BaseTool):
 
 
 def list_contractors(condition: str) -> List[Dict[AnyStr, Any]]:
-    from domain.contractors import Contractors
+    from src.domain.contractors import Contractors
     contractors_instance = Contractors.build('data/contractors.json')
     return contractors_instance.contractors

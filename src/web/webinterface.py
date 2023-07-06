@@ -4,8 +4,8 @@ __copyright__ = "Copyright 2022, 23. All rights reserved."
 from fastapi import FastAPI, Form, Request
 from fastapi.responses import HTMLResponse
 from fastapi.templating import Jinja2Templates
-from llm.chatgptclient import ChatGPTClient
-from llm.llmmonitor import LLMMonitor
+from src.llm.chatgptclient import ChatGPTClient
+from src.llm.llmmonitor import LLMMonitor
 
 
 class WebInterface(object):
@@ -25,7 +25,7 @@ class WebInterface(object):
     @staticmethod
     @app.get("/", response_class=HTMLResponse)
     async def root():
-        with open("../input/request.html", 'r') as f:
+        with open("../../input/request.html", 'r') as f:
             content = f.read()
         return content
 

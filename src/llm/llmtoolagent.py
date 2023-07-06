@@ -7,7 +7,7 @@ from langchain.agents import AgentType, AgentExecutor
 from langchain.tools.python.tool import PythonREPLTool
 from langchain.chat_models import ChatOpenAI
 from typing import Optional, List, TypeVar, AnyStr
-from llm.llmbaseagent import LLMBaseAgent
+from src.llm.llmbaseagent import LLMBaseAgent
 
 Instancetype = TypeVar('Instancetype', bound='ChatGPTToolAgent')
 
@@ -71,7 +71,7 @@ if __name__ == '__main__':
     list_tool_names = llm_tool_agent.append_tool(PythonREPLTool())
     print(str(list_tool_names))
 
-    from domain.querycontractors import load_contractors
+    from src.domain import load_contractors
     json_tool = StructuredTool.from_function(
             func=load_contractors,
             name="load_contractors",

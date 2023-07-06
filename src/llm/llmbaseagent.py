@@ -1,7 +1,7 @@
 __author__ = "Patrick Nicolas"
 __copyright__ = "Copyright 2022, 23. All rights reserved."
 
-from langchain.agents import AgentType, AgentExecutor
+from langchain.agents import AgentExecutor
 from typing import AnyStr
 from langchain.chat_models import ChatOpenAI
 

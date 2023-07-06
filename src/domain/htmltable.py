@@ -27,7 +27,7 @@ class HTMLTable(BaseTool):
 
 
 def format_html(input_list: List[Dict[AnyStr, Any]]) -> AnyStr:
-    from display.displayformat import DisplayFormat
+    from src.display import DisplayFormat
     table_html = DisplayFormat.html_table(input_list) if len(input_list) > 0 else "<h4>Empty list</h4>"
     return DisplayFormat.html_insert('input/request.html', table_html)
 

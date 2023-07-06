@@ -107,7 +107,7 @@ class ChatGPTClient(object):
                 max_tokens=self.chat_gpt_request.max_tokens
             )
             return response['choices'][0].message.content, response['usage'].total_tokens
-        except  openai.error.AuthenticationError as e:
+        except openai.error.AuthenticationError as e:
             logging.error(f'Failed as {str(e)}')
 
     def post_dev(self, prompt: AnyStr) -> ChatGPTResponse:
@@ -130,11 +130,41 @@ class ChatGPTClient(object):
         except  openai.error.AuthenticationError as e:
             logging.error(f'Failed as {str(e)}')
 
+    def post_streaming(self, prompt: AnyStr) -> (AnyStr, int):
+        """
+            Post a prompt/request to ChatGPT given the parameters defined in the constructor.
+            The entire response is objectified
+            :param prompt: Prompt or content of the request
+            :return: ChatGPTResponse
+        """
+        import json
+        import logging
+        try:
+            report = []
+            result = ""
+            last_response = None
+            for response in openai.ChatCompletion.create(
+                    model=self.chat_gpt_request.model,
+                    messages=[{'role': self.chat_gpt_request.user, 'content': prompt}],
+                    temperature=self.chat_gpt_request.temperature,
+                    max_tokens=self.chat_gpt_request.max_tokens,
+                    stream=True):
+                last_response = response
+                x = response
+                report.append(response['choices'][0].delta.content)
+                result = "".join(report).strip()
+                print(result.replace("\n", ""))
+
+            return result, last_response['usage'].total_tokens
+        except openai.error.AuthenticationError as e:
+            logging.error(f'Failed as {str(e)}')
+            return "", -1
+
 
 if __name__ == '__main__':
     chat_gpt = ChatGPTClient.build('gpt-3.5-turbo', 'user', 0.0)
     context = 'the Moon'
-    answer, num_tokens = chat_gpt.post(
+    answer, num_tokens = chat_gpt.post_streaming(
         """Please compute the TF-IDF (Term frequency-Inverse Document frequency) score for words in the two documents 
         delimited by triple backticks,```this is a good time to walk```, ```but not a good time to run```"""
     )

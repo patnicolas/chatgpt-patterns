@@ -20,7 +20,7 @@ class LLMMonitor(object):
         Author: Patrick Nicolas
         Version: 0.1
     """
-    monitor_path = '../monitor'
+    monitor_path = '../../monitor'
     ratio_tokens_words = 1.12
     usage_token_cost = {
         'gpt4': 0.03 * 0.001,
