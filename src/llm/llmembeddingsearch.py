@@ -78,7 +78,6 @@ class LLMEmbeddingSearch(object):
             raise NotImplementedError(f'Search type {search_type} not supported, use default search')
 
             # ------------------  Supporting methods ---------------------
-
     def __default_search(self, query: AnyStr) -> List[AnyStr]:
         docs = self.db.similarity_search(query)
         return [doc.page_content for doc in docs]
