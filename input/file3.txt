@@ -1,0 +1,37 @@
+Sr. Architect - Big Data Platform
+
+About The Team
+
+Zoom’s Big Data Platform organization is in need of a Sr. Architect to drive continued design and architectural improvements of our platform to both accommodate and drive Zoom’s business needs.
+
+As Zoom grows and expands, so does the company's data needs. We need to continuously revisit, update, and upgrade our environment architecture to be able to support both, today’s business needs as well as create strategic and scalable data solutions to drive Zoom growth.
+
+About The Role
+Drive and own architectural design strategies and their realization for the Big Data Platform
+Identify Big Data Platform areas that can be improved, propose better solutions, and drive implementation
+Create and maintain alignment between Zoom’s business and the Big Data Platform environment and technology
+Work with PMs, Engineers, and TechOps to maintain the integrity of our tech infrastructure
+Provide hands-on technical and execution leadership for engineering teams
+Define and execute architectural designs
+Maintain and drive architectural integrity throughout the Big Data Platform environment
+Help build a strong engineering culture by partnering closely with the Big Data Platform engineering teams and help develop their expertise
+About You
+
+Basic Qualifications
+10+ years of industry experience working with Big Data Platforms
+Deep understanding of Big Data Platform architecture scalability and performance
+Expert level hand-on experience in cloud technologies, preferably AWS related
+Deep understanding of data formats like Hudi, Iceberg, Deltalake, etc
+Deep expertise in real-time and batch data processing at large scale
+Deep understanding of data and how it relates to architecture (Data ingestion, Realtime, Batch, SQL, NoSQL, Analytics, etc)
+Expert understanding and use of standard software design patterns
+Understanding of modern SDLC processes (Agile, CI, CD, etc.) and how architecture fits
+Strong ability to think strategically and align design and architecture patterns to drive current needs as well as future growth
+Strong communication skills with the ability to tailor technical communications to any level (Exec to Jr. Software Engineers)
+Strong technical leadership with change management skills
+Ability to break a problem of any size into manageable pieces
+Deep understanding of enterprise integration with an emphasis on scalable patterns
+Ability to draft proposals of cost vs. use/benefit of proposed architectural changes
+Preferred Qualifications
+Experience building Machine Learning Platform
+Expertise with Data Bricks and/or Snowflake

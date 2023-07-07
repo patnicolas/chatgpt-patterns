@@ -1,0 +1,49 @@
+powers real-time business communications and data solutions that help companies and developers worldwide build better applications and customer experiences.
+
+Although we're headquartered in San Francisco, we have presence throughout South America, Europe, Asia and Australia. We're on a journey to becoming a globally anti-racist, anti-oppressive, anti-bias company that actively opposes racism and all forms of oppression and bias. At Twilio, we support diversity, equity & inclusion wherever we do business. We employ thousands of Twilions worldwide, and we're looking for more builders, creators, and visionaries to help fuel our growth momentum.
+
+About The Job
+
+This position is needed to lead data architecture for the industry-leading CDP inside Twilio.
+
+This role will guide building of key systems and products as part of the Twilio/Segment product portfolio, including stream data processing, storage and other mission-critical systems. This role will also provide oversight to engineering efforts for all engineering teams that are part of the Segment CDP group.
+
+Responsibilities
+
+In this role, you’ll:
+Design and review core system designs making up the Segment CDP product
+Partner with other engineering leads across Twilio to build world-class products
+Ensure world-class reliability, security and cost-efficiency for all the products we build
+Mentor other engineers on the team throughout their journey
+Qualifications
+
+Not all applicants will have skills that match a job description exactly. Twilio values diverse experiences in other industries, and we encourage everyone who meets the required qualifications to apply. While having “desired” qualifications make for a strong candidate, we encourage applicants with alternative experiences to also apply. If your career is just starting or hasn't followed a traditional path, don't let that stop you from considering Twilio. We are always looking for people who will bring something new to the table!
+
+Required
+Have a track record of designing and building large-scale, cloud-based, highly available software platforms.
+Domain expertise in Modern Data stack with experience in developing cloud-based data solution components and architecture covering data ingestion, data processing and data storage
+A thought leader in the cloud architecture space with a demonstrated bias for action
+Have the ability to balance long-term objectives with urgent short-term needs
+Have demonstrated the ability to design complex systems in an iterative and evolutionary manner.
+Location
+
+This role will be remote, and based in the USA.
+
+What We Offer
+
+There are many benefits to working at Twilio, including, in addition to competitive pay, things like generous time-off, ample parental and wellness leave, healthcare, a retirement savings program, and much more. Offerings vary by location.
+
+Twilio thinks big. Do you?
+
+We like to solve problems, take initiative, pitch in when needed, and are always up for trying new things. That's why we seek out colleagues who embody our values — something we call Twilio Magic . Additionally, we empower employees to build positive change in their communities by supporting their volunteering and donation efforts.
+
+So, if you're ready to unleash your full potential, do your best work, and be the best version of yourself, apply now!
+
+If this role isn't what you're looking for, please consider other open positions .
+Please note this role is open to candidates outside of Colorado, California, New York, and Washington. The information below is provided for candidates hired in those locations only.
+The estimated pay ranges for this role are as follows:
+Based in Colorado: $213,120 - $266,400
+Based in New York, Washington State or California (outside the San Francisco Bay Area): $225,680 - $282,100
+Based in the San Francisco Bay area, California: $250,720 - $313,400
+This role may be eligible to participate in Twilio’s equity plan. All roles are eligible for the following benefits: health care insurance, 401(k) retirement account, paid sick time, paid personal time off, paid parental leave.
+The successful candidate’s starting salary will be determined based on permissible, non-discriminatory factors such as skills, experience, and geographic location within the state.

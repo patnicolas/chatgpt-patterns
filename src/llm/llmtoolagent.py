@@ -22,6 +22,13 @@ class LLMToolAgent(LLMBaseAgent):
               _tools_list: List[AnyStr],
               agent_type: Optional[AgentType],
               _handle_parsing_errors: bool) -> Instancetype:
+        """
+        Constructor using an existing tool list, optional agent type
+        @param _tools_list:
+        @param agent_type:
+        @param _handle_parsing_errors:
+        @return:
+        """
         chat_handle = ChatOpenAI(temperature=0)
         agent = initialize_agent(
             load_tools(_tools_list, llm=chat_handle),
@@ -64,6 +71,7 @@ class LLMToolAgent(LLMBaseAgent):
 
 
 if __name__ == '__main__':
+    from langchain.tools import StructuredTool
 
     tool_names = ['llm-math']
     llm_tool_agent = LLMToolAgent.build(tool_names, AgentType.STRUCTURED_CHAT_ZERO_SHOT_REACT_DESCRIPTION, True)

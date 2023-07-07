@@ -3,30 +3,38 @@ __copyright__ = "Copyright 2022, 23. All rights reserved."
 
 from typing import AnyStr, Sequence
 from langchain.chat_models import ChatOpenAI
-from langchain.agents import initialize_agent
+from langchain.agents import initialize_agent, AgentExecutor
 from langchain.tools import BaseTool
 from langchain.agents import AgentType
 from llmbaseagent import LLMBaseAgent
 
 
-class OpenAIFunctionAgent(object):
+class OpenAIFunctionAgent(LLMBaseAgent):
 
-    """
-        Constructor for the generic Agent that support Open AI functions
-        :param _model Open AI model that supports functions
-        :param _tools Sequence of tools supporting this agent
-    """
-    def __init__(self, _model: AnyStr, _tools: Sequence[BaseTool], cache_model: AnyStr):
-        assert _model == "gpt-3.5-turbo-0613", f'Model {_model} does not support OpenAI functions'
+    def __init__(self, chat_handle: ChatOpenAI, agent: AgentExecutor, cache_model: AnyStr):
+        """
+        Default constructor for OpenAI Function Agent
+        @param chat_handle: Handle to LLM
+        @param agent: Agent executor
+        @param cache_model: Model for caching (SQL lite, in memory,...)
+        """
+        super(OpenAIFunctionAgent, self).__init__(chat_handle, agent, cache_model)
+
+    @classmethod
+    def build(cls, _model: AnyStr, _tools: Sequence[BaseTool], cache_model: AnyStr):
+        """
+        Detailed constructor with specific arguments
+        @param _model: Open AI model that supports functions
+        @param _tools: Sequence of tools supporting this agent
+        @param cache_model: Cache model used for operations
+        """
+        assert _model in ["gpt-3.5-turbo-0613", "gpt-4.0"], f'Model {_model} does not support OpenAI functions'
 
         llm = ChatOpenAI(temperature=0, model=_model)
-        self.open_ai_agent = initialize_agent(
+        open_ai_agent: AgentExecutor = initialize_agent(
             _tools,
             llm,
             agent=AgentType.OPENAI_FUNCTIONS,
-            verbose=True
-        )
-        llm.llm_cache = LLMBaseAgent.set_cache(cache_model)
+            verbose=True)
+        return cls(llm, open_ai_agent, cache_model)
 
-    def __call__(self, prompt):
-        return self.open_ai_agent.run(prompt)

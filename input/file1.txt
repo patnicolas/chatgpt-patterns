@@ -1,0 +1,39 @@
+ we are focused on a digital transformation that will deliver modern, innovative experiences for our clients, financial advisors, and employees. We are investing in data and technology, using DevOps practices, and building an engineering culture of empowered technical experts. Our technologists are involved in work that includes cloud native development, digital architecture and integration, automation, cloud data platforms, artificial intelligence, and machine learning as well as maximizing platforms such as Salesforce, AWS and Microsoft.
+
+The Principal Data Architect will be responsible for helping define and lead the data architecture for Thrivent. This includes evaluating existing systems and technologies, along with the development of solutions and blueprints to solve business challenges. A successful candidate will provide data architectural leadership across our organization’s systems, products, and technologies while working closely with business leaders, developers, and IT staff to ensure that the data architecture supports the needs of the organization.
+
+DUTIES & RESPONSIBILITIES:
+Able to lead large scale business and technology initiatives at an enterprise level.
+Define and lead the data architecture including the development of a data roadmap and data strategy.
+Design and implement data models, data warehouses, data lakes, and data integration processes to support the organization's data needs.
+Design, develop, and maintain data streaming architecture and processes to enable real-time data processing and analytics.
+Develop data standards, policies, and procedures to ensure data quality, consistency, and security.
+Lead the evaluation and selection of data management technologies and tools, including cloud-based technologies such as Snowflake and big data processing technologies such as Apache Spark.
+Develop and maintain expertise in AI/ML technologies and identify opportunities to apply these technologies to solve business problems and enhance the organization's data analytics capabilities.
+Provide technical leadership and mentoring to other members of the data architecture team.
+Stay current with emerging trends in data architecture, big data, and data analytics
+Coach / mentor other team members as appropriate.
+Recruits, develops, and sustains a high-performing team while promoting a culture of shared accountability, operational excellence, and partnership across the organization.
+
+QUALIFICATIONS & SKILLS:
+
+Required:
+Bachelor's degree in Computer Science, Information Technology, or a related field.
+10+ years of experience in data architecture and design.
+Proven experience in leading large-scale data architecture projects.
+Expertise in data modeling, data warehousing, data integration, and data management technologies.
+Strong understanding of cloud computing, big data, and data analytics.
+Experience with data lake technologies such as Azure Data Lake or AWS S3, as well as Snowflake.
+Experience with real-time data streaming technologies such as Apache Kafka, AWS Kinesis or Azure Event Hub.
+Experience with big data processing technologies such as Apache Spark.
+Experience with AI/ML technologies, such as TensorFlow, Keras, or PyTorch.
+Excellent communication and interpersonal skills, with the ability to communicate complex technical concepts to non-technical stakeholders.
+Strong leadership and mentoring skills.
+
+Preferred:
+Master’s Degree
+Financial Services industry experience
+
+We exist to help people achieve financial clarity. At Thrivent, we believe money is a tool, not a goal. Driven by a higher purpose at our core, we are committed to providing financial advice, investments, insurance, banking and generosity programs to help people make the most of all they’ve been given. 
+
+At our heart, we are a membership-owned fraternal organization, as well as a holistic financial services organization, dedicated to serving the unique needs of our clients. We focus on their goals and priorities, guiding them toward financial choices that will help them live the life they want today—and tomorrow.

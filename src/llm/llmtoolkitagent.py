@@ -6,10 +6,15 @@ from langchain.chat_models import ChatOpenAI
 from langchain.agents import AgentExecutor
 from typing import AnyStr, TypeVar, Any, List, Dict
 
-Instancetype = TypeVar('Instancetype', bound='ChatGPTToolkitAgent')
+Instancetype = TypeVar('Instancetype', bound='LLMToolkitAgent')
 
 
 class LLMToolkitAgent(LLMBaseAgent):
+    pandas_df_agent_name = "pandas_dataframe"
+    sql_agent_name = "sql_database"
+    csv_agent_name = "csv"
+    spark_sql_agent_name = "spark_sql"
+
     """
         Wrapper for agent which rely on LangChain tool kits suc as Pandas dataframe
             file system, SQL database, Spark query, Json, CSV file loading..
@@ -34,7 +39,7 @@ class LLMToolkitAgent(LLMBaseAgent):
             :param agent_name name of agent
             :param argument Parameter for agent or toolkit (pd.Dataframe for Pandas, Spark Dataframe
         """
-        if agent_name == "pandas_dataframe":
+        if agent_name == LLMToolkitAgent.pandas_df_agent_name:
             from langchain.agents import create_pandas_dataframe_agent
 
             if argument.__class__.__name != 'pd.Dataframe':
@@ -42,7 +47,7 @@ class LLMToolkitAgent(LLMBaseAgent):
             pandas_agent = create_pandas_dataframe_agent(llm=chat_handle, df=argument, verbose=True)
             return cls(chat_handle, pandas_agent)
 
-        elif agent_name == "sql_database":
+        elif agent_name == LLMToolkitAgent.sql_agent_name:
             from langchain.agents.agent_toolkits import SQLDatabaseToolkit
             from langchain.agents import create_sql_agent
 
@@ -50,13 +55,13 @@ class LLMToolkitAgent(LLMBaseAgent):
             sql_agent = create_sql_agent(llm=chat_handle, toolkit=sql_toolkit, verbose=True)
             return cls(chat_handle, sql_agent)
 
-        elif agent_name == "csv":
+        elif agent_name == LLMToolkitAgent.csv_agent_name:
             from langchain.agents import create_csv_agent
 
             csv_agent = create_csv_agent(chat_handle, argument, verbose=True)
             return cls(chat_handle, csv_agent)
 
-        elif agent_name == "spark_sql":
+        elif agent_name == LLMToolkitAgent.spark_sql_agent_name:
             from langchain.utilities.spark_sql import SparkSQL
             from langchain.agents import create_spark_sql_agent
             from langchain.agents.agent_toolkits import SparkSQLToolkit
@@ -75,7 +80,7 @@ class LLMToolkitAgent(LLMBaseAgent):
     def load_from_json(argument: AnyStr) -> List[Dict[AnyStr, Any]]:
         import json
 
-        filename = f'/Users/patricknicolas/dev/chatgpt-patterns/input/{argument}'
+        filename = f'../../input/{argument}'
         chat_handle = ChatOpenAI(temperature=0)
         with open(filename) as f:
             content = f.read()
@@ -84,11 +89,10 @@ class LLMToolkitAgent(LLMBaseAgent):
             return result
 
 
-
 if __name__ == '__main__':
-    from src.domain.contractors import Contractors
+    from test.domain.entities import Entities
 
-    contractors_list = Contractors.load('../../input/contractors.json')
+    contractors_list = Entities.load('../../input/contractors.json')
     print(str(contractors_list))
     chat = ChatOpenAI(temperature=0)
     llm_json_agent = LLMToolkitAgent.build_from_toolkit(chat, 'json', '../input/contractors.json')

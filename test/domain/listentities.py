@@ -6,26 +6,26 @@ from langchain.tools import BaseTool
 from pydantic import Field, BaseModel
 
 
-class ListContractorsInput(BaseModel):
+class ListEntitiesInput(BaseModel):
     """ Wraps the input for loading the contractor list with condition"""
     condition: str = Field(..., description="Load and list all the contractors")
 
 
-class ListContractors(BaseTool):
-    name = "query_contractors"
+class ListEntities(BaseTool):
+    name = "query_entities"
     description = "Useful to list all the contractors from a JSON file loaded from data folder"
 
     def _run(self, condition: str) -> List[Dict[AnyStr, Any]]:
-        list_result = list_contractors(condition)
+        list_result = list_entities(condition)
         return list_result
 
     def _arun(self, condition: str) -> List[Dict[AnyStr, Any]]:
-        raise NotImplementedError("ListContractors does not support async")
+        raise NotImplementedError("List entities does not support async")
 
     args_schema: Optional[Type[BaseModel]] = None
 
 
-def list_contractors(condition: str) -> List[Dict[AnyStr, Any]]:
-    from src.domain.contractors import Contractors
-    contractors_instance = Contractors.build('data/contractors.json')
-    return contractors_instance.contractors
+def list_entities(condition: str) -> List[Dict[AnyStr, Any]]:
+    from test.domain.entities import Entities
+    entities_instance = Entities.build('data/contractors.json')
+    return entities_instance.entities
