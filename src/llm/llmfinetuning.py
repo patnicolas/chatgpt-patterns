@@ -2,7 +2,7 @@ __author__ = "Patrick Nicolas"
 __copyright__ = "Copyright 2022, 23. All rights reserved."
 
 import pandas as pd
-from src.util import IOUtil
+from src.util.ioutil import IOUtil
 
 
 class LLMFineTuning(object):

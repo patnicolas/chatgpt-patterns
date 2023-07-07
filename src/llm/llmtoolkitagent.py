@@ -17,8 +17,8 @@ class LLMToolkitAgent(LLMBaseAgent):
         :param chat_handle Handle or reference to the large language model
         :param agent LangChain agent executor
     """
-    def __init__(self, chat_handle: ChatOpenAI, agent: AgentExecutor):
-        super(LLMToolkitAgent, self).__init__(chat_handle, agent)
+    def __init__(self, chat_handle: ChatOpenAI, agent: AgentExecutor, cache_model: AnyStr):
+        super(LLMToolkitAgent, self).__init__(chat_handle, agent, cache_model)
 
     @classmethod
     def build_from_toolkit(cls,  chat_handle: ChatOpenAI, agent_name: AnyStr, argument: Any) -> Instancetype:

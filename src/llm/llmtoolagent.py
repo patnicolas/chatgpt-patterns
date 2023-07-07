@@ -13,8 +13,8 @@ Instancetype = TypeVar('Instancetype', bound='ChatGPTToolAgent')
 
 
 class LLMToolAgent(LLMBaseAgent):
-    def __init__(self, chat_handle: ChatOpenAI, agent: AgentExecutor, _tools_list: List[AnyStr]):
-        super(LLMToolAgent, self).__init__(chat_handle, agent)
+    def __init__(self, chat_handle: ChatOpenAI, agent: AgentExecutor, _tools_list: List[AnyStr], cache_model: AnyStr):
+        super(LLMToolAgent, self).__init__(chat_handle, agent, cache_model)
         self.tools_list = _tools_list
 
     @classmethod
