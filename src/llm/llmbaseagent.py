@@ -10,6 +10,7 @@ from langchain.chat_models import ChatOpenAI
 class LLMBaseAgent(object):
     in_memory_cache = "in_memory_cache"
     sql_lite_cache = "sql_lite_cache"
+    no_cache = ""
 
     def __init__(self, chat_handle: ChatOpenAI, agent: AgentExecutor, cache_model: AnyStr):
         """
@@ -18,12 +19,13 @@ class LLMBaseAgent(object):
         :param agent LangChain agent executor
         :param cache_model Cache model (in memory, SQL lite,...)
         """
-        assert cache_model in [LLMBaseAgent.in_memory_cache, LLMBaseAgent.sql_lite_cache], \
+        assert cache_model in [LLMBaseAgent.in_memory_cache, LLMBaseAgent.sql_lite_cache, LLMBaseAgent.no_cache], \
             f'Cache model {cache_model} is not supported'
 
         self.chat_handle = chat_handle
         self.agent = agent
-        self.chat_handle.llm_cache = LLMBaseAgent.set_cache(cache_model)
+        if cache_model:
+            self.chat_handle.llm_cache = LLMBaseAgent.set_cache(cache_model)
 
     @staticmethod
     def set_cache(cache_model: AnyStr) -> BaseCache:

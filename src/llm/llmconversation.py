@@ -72,10 +72,3 @@ class LLMConversation(object):
         return self.memory.load_memory_variables({})
 
 
-if __name__ == '__main__':
-    llm_conversation = LLMConversation(_model="gpt-3.5-turbo-0613", memory_buffer_type="a", argument=4, _verbose=True)
-    prompt_input = "What is the color of the moon"
-    response = llm_conversation(prompt_input)
-    print(str(llm_conversation.load_memory_variables()))
-    llm_conversation.save_context({'color of Neptune':'blue', 'Moon age': '39123'})
-    print(str(llm_conversation.load_memory_variables()))

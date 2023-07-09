@@ -21,15 +21,28 @@ class LLMToolAgent(LLMBaseAgent):
     def build(cls,
               _tools_list: List[AnyStr],
               agent_type: Optional[AgentType],
-              _handle_parsing_errors: bool) -> Instancetype:
+              _handle_parsing_errors: bool,
+              cache_model: AnyStr = "",
+              streaming: bool = False) -> Instancetype:
         """
         Constructor using an existing tool list, optional agent type
-        @param _tools_list:
-        @param agent_type:
-        @param _handle_parsing_errors:
-        @return:
+        :param _tools_list: List of name of tools used in this agent
+        :param agent_type: Type of agent
+        :param _handle_parsing_errors: Flag for parsing errors
+        :param cache_model Model for caching if non-empty
+        :param streaming, Specify is streaming call back is enabled (=True)
+        :return: Instance of LLM tool agent
         """
-        chat_handle = ChatOpenAI(temperature=0)
+        from langchain.callbacks.streaming_stdout import StreamingStdOutCallbackHandler
+
+        # Add streaming if specified
+        chat_handle = ChatOpenAI(temperature=0, streaming=streaming, callbacks=[StreamingStdOutCallbackHandler()]) \
+            if streaming else ChatOpenAI(temperature=0)
+
+        # Add caching if specified
+        if cache_model:
+            chat_handle.llm_cache = LLMBaseAgent.set_cache(cache_model)
+
         agent = initialize_agent(
             load_tools(_tools_list, llm=chat_handle),
             chat_handle,
@@ -79,7 +92,7 @@ if __name__ == '__main__':
     list_tool_names = llm_tool_agent.append_tool(PythonREPLTool())
     print(str(list_tool_names))
 
-    from src.domain import load_contractors
+    from test.domain import load_contractors
     json_tool = StructuredTool.from_function(
             func=load_contractors,
             name="load_contractors",

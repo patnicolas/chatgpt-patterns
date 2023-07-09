@@ -8,9 +8,9 @@ from typing import AnyStr
 
 def simple_query_contractor_test(prompt: AnyStr):
     from src.llm.openaifunctionagent import OpenAIFunctionAgent
-    from src.domain.simplequerycontractors import SimpleQueryContractors
+    from test.domain.simplequeryentities import SimpleQueryEntities
 
-    tools = [SimpleQueryContractors()]
+    tools = [SimpleQueryEntities()]
     open_ai_function_agent = OpenAIFunctionAgent("gpt-3.5-turbo-0613", tools)
     answer = open_ai_function_agent(prompt)
     print(answer)

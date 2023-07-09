@@ -26,7 +26,10 @@ class LLMToolkitAgent(LLMBaseAgent):
         super(LLMToolkitAgent, self).__init__(chat_handle, agent, cache_model)
 
     @classmethod
-    def build_from_toolkit(cls,  chat_handle: ChatOpenAI, agent_name: AnyStr, argument: Any) -> Instancetype:
+    def build_from_toolkit(cls,
+                           chat_handle: ChatOpenAI,
+                           agent_name: AnyStr,
+                           argument: Any) -> Instancetype:
         """
             Constructor to instantiate the agent from toolkits
                 - Pandas dataframe
@@ -38,6 +41,7 @@ class LLMToolkitAgent(LLMBaseAgent):
             :param chat_handle Handle or reference to the large language model
             :param agent_name name of agent
             :param argument Parameter for agent or toolkit (pd.Dataframe for Pandas, Spark Dataframe
+            :param streaming FLag to specify is streaming to stdout is enabled
         """
         if agent_name == LLMToolkitAgent.pandas_df_agent_name:
             from langchain.agents import create_pandas_dataframe_agent
