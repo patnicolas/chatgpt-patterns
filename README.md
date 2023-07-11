@@ -1,19 +1,20 @@
-### Patrick Nicolas - Last update 06.17.2023
+### Patrick Nicolas - Last update 07.10.2023
 
 ![ChatGPT-LangChain utilities](images/telecom.jpeg)
 
 
 
 
-The objective is this repository is to evaluate and extend **ChatGPT API** and **LangChain** framework to build applications. These techniques include
+The objective is this repository is to evaluate and extend **ChatGPT API**, **LangChain** and **LLamaIndex** data framework to build applications. These techniques include
 - Prompt engineering patterns: *Output automater*, *Persona*, *Fact checking template* and *cognitive verifier*
-- Typed prompt using langchain chains
-- Generative workflow using langchain agents 
+- Typed prompt using *LangChain* chains
+- Generative workflow using *LangChain*, *OpenAI* and *LLama* agents.
 
 ## References 
 - [Extending LangChain sequences with data types](http://patricknicolas.blogspot.com/2023/06/langchain-sequence-with-typed-variables.html)
 - [ChatGPT Prompt patterns for code generation](http://patricknicolas.blogspot.com/2023/05/chatgpt-prompt-patterns-for-code.html)
 - [LangChain introduction](https://python.langchain.com/en/latest/index.html)
+- [LLama introduction](https://gpt-index.readthedocs.io/en/latest/index.html)
 - [Chain-of-Thought Prompting Elicits Reasoning in Large Language Models](https://arxiv.org/pdf/2201.11903.pdf)
 - [OpenAI ChatGPT](https://openai.com/chatgpt)
 
@@ -28,9 +29,10 @@ The objective is this repository is to evaluate and extend **ChatGPT API** and *
 | scikit-learn | 1.2.2   |
 | numpy        | 1.24.3  |
 | pandas       | 2.0.2   |
-| langchain    | 0.0.2   |
+| langchain    | 0.0.227 |
 | polars       | 0.17.0  |
 | fastapi      | 0.97.0  |
+| llama index  | 0.7.4   |
 
 
 ## Updates
@@ -44,9 +46,10 @@ The objective is this repository is to evaluate and extend **ChatGPT API** and *
 |Package|Description|
 |:--|:--|
 |util|Utilities class|
-|llm|Classes related to usage and fine tuning for ChatGPT|
-|web|Web service and UI|
-|domain|Domain specific target application code|
+|openai|Classes related to usage and fine tuning for ChatGPT|
+|llm_langchain|Classes related to loader, splitter, chain and agents using LangChain framework|
+|llm_llama|Classes related to chain and agents using LLamaIndex framework|
+|domain|Domain specific target application code for testing purpose|
 
 
 
