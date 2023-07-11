@@ -1,7 +1,7 @@
 __author__ = "Patrick Nicolas"
 __copyright__ = "Copyright 2022, 23. All rights reserved."
 
-from src.llm.llmbaseagent import LLMBaseAgent
+from src.llm_langchain.llmbaseagent import LLMBaseAgent
 from langchain.chat_models import ChatOpenAI
 from langchain.agents import AgentExecutor
 from typing import AnyStr, TypeVar, Any, List, Dict
@@ -103,8 +103,8 @@ if __name__ == '__main__':
     answer1 = llm_json_agent.run("List all the contractors in San Jose")
     print(answer1)
 """
-    tools = ['llm-math']
-    from llm.chatgpttoolagent import ChatGPTToolAgent
+    tools = ['llm_langchain-math']
+    from llm_langchain.chatgpttoolagent import ChatGPTToolAgent
     from langchain.agents import AgentType
     from langchain.tools.python.tool import PythonREPLTool
 

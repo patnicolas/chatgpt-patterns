@@ -1,5 +1,5 @@
 from unittest import TestCase
-from src.llm.llmembeddingsearch import LLMEmbeddingSearch
+from src.llm_langchain.llmembeddingsearch import LLMEmbeddingSearch
 
 
 class TestLLMEmbeddingSearch(TestCase):

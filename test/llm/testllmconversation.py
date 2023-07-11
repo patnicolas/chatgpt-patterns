@@ -4,7 +4,7 @@ __copyright__ = "Copyright 2022, 23. All rights reserved."
 from unittest import TestCase
 import unittest
 from typing import NoReturn, AnyStr
-from src.llm.llmconversation import LLMConversation
+from src.llm_langchain.llmconversation import LLMConversation
 
 
 class TestLLMConversation(TestCase):

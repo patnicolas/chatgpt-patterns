@@ -4,8 +4,8 @@ __copyright__ = "Copyright 2022, 23. All rights reserved."
 from fastapi import FastAPI, Form, Request
 from fastapi.responses import HTMLResponse
 from fastapi.templating import Jinja2Templates
-from src.llm.chatgptclient import ChatGPTClient
-from src.llm.llmmonitor import LLMMonitor
+from src.llm_openai.chatgptclient import ChatGPTClient
+from src.llm_langchain.llmmonitor import LLMMonitor
 
 
 class WebInterface(object):

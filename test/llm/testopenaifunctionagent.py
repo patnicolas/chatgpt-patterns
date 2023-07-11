@@ -16,7 +16,7 @@ class TestOpenAIFunctionAgent(TestCase):
 
     @staticmethod
     def __list_contractor_test(prompt: AnyStr):
-        from src.llm.openaifunctionagent import OpenAIFunctionAgent
+        from src.llm_langchain.openaifunctionagent import OpenAIFunctionAgent
         from test.domain.listentities import ListEntities
 
         tools = [ListEntities()]
@@ -26,7 +26,7 @@ class TestOpenAIFunctionAgent(TestCase):
 
     @staticmethod
     def __simple_query_contractor_test(prompt: AnyStr):
-        from src.llm.openaifunctionagent import OpenAIFunctionAgent
+        from src.llm_langchain.openaifunctionagent import OpenAIFunctionAgent
         from test.domain.simplequeryentities import SimpleQueryEntities
 
         tools = [SimpleQueryEntities()]

@@ -52,7 +52,7 @@ class LLMFileCallback(BaseCallbackHandler):
         pass
 
     def on_llm_error(self, error: Union[Exception, KeyboardInterrupt], **kwargs: Any) -> None:
-        logging.warning(f'Call back on llm error should not be called')
+        logging.warning(f'Call back on llm_langchain error should not be called')
         pass
 
     def on_chain_start(self, serialized: Dict[AnyStr, Any], inputs: Dict[AnyStr, Any], **kwargs: Any) -> None:

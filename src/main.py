@@ -7,7 +7,7 @@ from typing import AnyStr
 
 
 def simple_query_contractor_test(prompt: AnyStr):
-    from src.llm.openaifunctionagent import OpenAIFunctionAgent
+    from src.llm_langchain.openaifunctionagent import OpenAIFunctionAgent
     from test.domain.simplequeryentities import SimpleQueryEntities
 
     tools = [SimpleQueryEntities()]
@@ -34,7 +34,7 @@ def query_contractor_test(prompt: AnyStr):
 
 
 def list_contractor_test(prompt: AnyStr):
-    from src.llm.openaifunctionagent import OpenAIFunctionAgent
+    from src.llm_langchain.openaifunctionagent import OpenAIFunctionAgent
     from src.domain.listcontractors import ListContractors
 
     tools = [ListContractors()]

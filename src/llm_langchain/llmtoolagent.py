@@ -7,7 +7,7 @@ from langchain.agents import AgentType, AgentExecutor
 from langchain.tools.python.tool import PythonREPLTool
 from langchain.chat_models import ChatOpenAI
 from typing import Optional, List, TypeVar, AnyStr
-from src.llm.llmbaseagent import LLMBaseAgent
+from src.llm_langchain.llmbaseagent import LLMBaseAgent
 
 Instancetype = TypeVar('Instancetype', bound='ChatGPTToolAgent')
 
@@ -86,7 +86,7 @@ class LLMToolAgent(LLMBaseAgent):
 if __name__ == '__main__':
     from langchain.tools import StructuredTool
 
-    tool_names = ['llm-math']
+    tool_names = ['llm_langchain-math']
     llm_tool_agent = LLMToolAgent.build(tool_names, AgentType.STRUCTURED_CHAT_ZERO_SHOT_REACT_DESCRIPTION, True)
 
     list_tool_names = llm_tool_agent.append_tool(PythonREPLTool())
