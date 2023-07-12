@@ -1,0 +1,13 @@
+fastapi~=0.96.0
+torch~=2.0.1
+numpy~=1.24.0
+matplotlib~=3.7.1
+pandas~=2.0.2
+boto3~=1.26.149
+requests~=2.31.0
+urllib3~=1.26.16
+polars~=0.18.2
+cryptography~=41.0.1
+openai~=0.27.7
+langchain~=0.0.229
+pydantic~=1.10.9
